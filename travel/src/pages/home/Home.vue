@@ -1,11 +1,8 @@
 <template>
-    <div>Home</div>
+    <div>HelloWorld</div>
 </template>
 
 <script>
-export default {
-  name: 'Home'
-}
 </script>
 
 <style></style>
