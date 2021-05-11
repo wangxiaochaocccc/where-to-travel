@@ -1,0 +1,30 @@
+{
+  "id": "2119619",
+  "name": "where to taavel",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "去哪旅行网",
+  "glyphs": [
+    {
+      "icon_id": "2674472",
+      "name": "返回",
+      "font_class": "fanhui",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "2675116",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "15838582",
+      "name": "arrow-down-filling",
+      "font_class": "arrow-down-filling",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    }
+  ]
+}
