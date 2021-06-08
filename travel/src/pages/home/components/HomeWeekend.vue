@@ -3,14 +3,14 @@
     <div class="title">周末去哪儿</div>
     <ul>
       <li class="item"
-        v-for="item of recommendList"
+        v-for="item of list"
         :key="item.id"
       >
         <div class="img-wrapper">
           <img class="item-img" :src="item.imgUrl" alt="">
         </div>
         <div class="item-info">
-          <div class="item-title">{{item.name}}</div>
+          <div class="item-title">{{item.title}}</div>
           <div class="item-desc">{{item.desc}}</div>
         </div>
       </li>
@@ -21,25 +21,8 @@
 <script>
 export default {
   name: 'HomeWeekend',
-  data () {
-    return {
-      recommendList: [{
-        id: '01',
-        imgUrl: 'https://imgs.qunarzz.com/sight/source/1811/f3/86173f863bef61.jpg_r_640x214_52b003ac.jpg',
-        name: '颐和园',
-        desc: '中国现存最大的皇家园林'
-      }, {
-        id: '02',
-        imgUrl: 'https://imgs.qunarzz.com/sight/source/1811/7e/476589267ebb41.jpg_r_640x214_bf599709.jpg',
-        name: '鸟巢',
-        desc: '2008年奥运会主场所'
-      }, {
-        id: '03',
-        imgUrl: 'https://imgs.qunarzz.com/sight/source/1505/aa/7baaf8a851d221.jpg_r_640x214_1431200f.jpg',
-        name: '恭王府',
-        desc: '一座恭王府，半部清代史'
-      }]
-    }
+  props: {
+    list: Array
   }
 }
 </script>
@@ -47,7 +30,6 @@ export default {
 <style scoped lang="stylus">
   @import '~styles/mixins.styl';
   .title
-    margin-top .2rem
     line-height .78rem
     background-color #eee
     text-indent .2rem

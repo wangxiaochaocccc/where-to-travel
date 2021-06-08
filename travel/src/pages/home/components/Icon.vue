@@ -1,6 +1,6 @@
 <template>
   <div class="icon">
-    <swiper>
+    <swiper :options="swiperOptions" v-if="showIcons">
       <swiper-slide
         v-for="(page,index) of pages"
         :key="index"
@@ -23,51 +23,29 @@
 <script>
 export default {
   name: 'HomeIcon',
+  props: {
+    list: Array
+  },
   data () {
     return {
-      iconList: [{
-        id: '01',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1803/20/831d62d2e1c7be02.png',
-        desc: '故宫'
-      }, {
-        id: '02',
-        imgUrl: 'https://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20209/cd9c5d035aa48862c3695becc06764e6.png',
-        desc: '八达岭长城'
-      }, {
-        id: '03',
-        imgUrl: 'https://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20209/feac0f0a895cbc7c49920238529ca6e7.png',
-        desc: '文化古迹'
-      }, {
-        id: '04',
-        imgUrl: 'https://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20209/5ffcd4a916f764f678263b27c1e2e00c.png',
-        desc: '天坛公园'
-      }, {
-        id: '05',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1803/20/831d62d2e1c7be02.png',
-        desc: '故宫'
-      }, {
-        id: '06',
-        imgUrl: 'https://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20209/cd9c5d035aa48862c3695becc06764e6.png',
-        desc: '八达岭长城'
-      }, {
-        id: '07',
-        imgUrl: 'https://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20209/feac0f0a895cbc7c49920238529ca6e7.png',
-        desc: '文化古迹'
-      }, {
-        id: '08',
-        imgUrl: 'https://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20209/5ffcd4a916f764f678263b27c1e2e00c.png',
-        desc: '天坛公园'
-      }, {
-        id: '09',
-        imgUrl: 'https://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20209/5ffcd4a916f764f678263b27c1e2e00c.png',
-        desc: '天坛公园2'
-      }]
+      swiperOptions: {
+        // 这样写不合法了已经
+        // pagination: {
+        //   el: '.swiper-pagination'
+        // }
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        // 循环
+        loop: true
+        // 每张播放时长3秒，自动播放
+        // autoplay: 2000
+      }
     }
   },
   computed: {
     pages () {
       const pages = []
-      this.iconList.forEach((item, index) => {
+      this.list.forEach((item, index) => {
         const page = Math.floor(index / 8)
         if (!pages[page]) {
           pages[page] = []
@@ -75,6 +53,9 @@ export default {
         pages[page].push(item)
       })
       return pages
+    },
+    showIcons () {
+      return this.list.length
     }
   }
 }
@@ -86,6 +67,7 @@ export default {
   .icon >>> .swiper-container
     height 0
     padding-bottom 50%
+    padding-top .2rem
   .icon-item
     position relative
     float left

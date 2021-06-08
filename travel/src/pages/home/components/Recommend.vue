@@ -3,12 +3,12 @@
     <div class="title">热销推荐</div>
     <ul>
       <li class="item"
-        v-for="item of recommendList"
+        v-for="item of list"
         :key="item.id"
       >
         <img class="item-img" :src="item.imgUrl" alt="">
         <div class="item-info">
-          <div class="item-title">{{item.name}}</div>
+          <div class="item-title">{{item.title}}</div>
           <div class="item-desc">{{item.desc}}</div>
           <input class="item-btn" type="button" value="查看详情">
         </div>
@@ -20,25 +20,8 @@
 <script>
 export default {
   name: 'HomeRecommend',
-  data () {
-    return {
-      recommendList: [{
-        id: '01',
-        imgUrl: 'https://imgs.qunarzz.com/sight/p0/2005/30/307fa37039eab5cba3.water.jpg_250x250_d76001d5.jpg',
-        name: '颐和园',
-        desc: '中国现存最大的皇家园林'
-      }, {
-        id: '02',
-        imgUrl: 'https://imgs.qunarzz.com/sight/p0/1508/fe/434ee530e21f1c11bad088e8cc8d5e93.water.jpg_200x200_912ce9f4.jpg',
-        name: '鸟巢',
-        desc: '2008年奥运会主场所'
-      }, {
-        id: '03',
-        imgUrl: 'https://imgs.qunarzz.com/sight/p0/201405/12/51b63883c25f5d87af3c08bb016e2bd7.jpg_200x200_8eb33f07.jpg',
-        name: '恭王府',
-        desc: '一座恭王府，半部清代史'
-      }]
-    }
+  props: {
+    list: Array
   }
 }
 </script>
