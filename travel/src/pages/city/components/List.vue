@@ -23,6 +23,7 @@
       <div class="area"
         v-for="(item, key) of cities"
         :key="key"
+        :ref="key"
       >
         <div class="title border-topbottom">
           {{key}}
@@ -44,13 +45,24 @@ export default {
   name: 'CityList',
   props: {
     cities: Object,
-    hot: Array
+    hot: Array,
+    letter: String
   },
   mounted () {
     this.scroll = new Bscroll(this.$refs.wrapper)
   },
   updated () {
     this.scroll.refresh()
+  },
+  watch: {
+    letter () {
+      if (this.letter) {
+        // 必须放在if里 否则会报错
+        let element = this.$refs[this.letter][0]
+        // 参数必须是DOM元素
+        this.scroll.scrollToElement(element)
+      }
+    }
   }
 }
 </script>
