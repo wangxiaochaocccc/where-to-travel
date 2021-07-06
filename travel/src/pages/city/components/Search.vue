@@ -48,13 +48,17 @@ export default {
       }, 100)
     }
   },
-  mounted () {
-    this.scroll = new Bscroll(this.$refs.search)
-  },
   computed: {
     hasNoData () {
       return !this.list.length
     }
+  },
+  mounted () {
+    this.scroll = new Bscroll(this.$refs.search)
+  },
+  updated () {
+    // 重新计算高度
+    this.scroll.refresh()
   }
 }
 </script>
@@ -74,13 +78,14 @@ export default {
       border-radius .06rem
       padding 0 .1rem
   .search-content
-    overflow hidden
+    height 100%
     position absolute
     top 1.58rem
     left 0
     right 0
     bottom 0
     background-color #eee
+    overflow hidden
     z-index 5
     .search-item
       line-height .62rem
