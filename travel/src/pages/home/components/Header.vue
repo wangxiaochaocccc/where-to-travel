@@ -10,7 +10,7 @@
       </div>
       <router-link to="/city">
         <div class="header-right">
-          {{this.$store.state.city}}
+          {{this.currentCity}}
           <span class="iconfont trangle-icon">&#xe688;</span>
         </div>
       </router-link>
@@ -19,8 +19,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'HomeHeader'
+  name: 'HomeHeader',
+  computed: {
+    ...mapState({
+      "currentCity": "city"
+    })
+  }
 }
 </script>
 
@@ -50,7 +57,6 @@ export default {
       text-align center
       color #fff
       .trangle-icon {
-        margin-left -0.1rem
         font-size .28rem
       }
 </style>
