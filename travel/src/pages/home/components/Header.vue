@@ -25,7 +25,7 @@ export default {
   name: 'HomeHeader',
   computed: {
     ...mapState({
-      "currentCity": "city"
+      'currentCity': 'city'
     })
   }
 }
