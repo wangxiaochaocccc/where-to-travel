@@ -10,7 +10,7 @@
       </div>
       <router-link to="/city">
         <div class="header-right">
-          {{this.city}}
+          {{this.$store.state.city}}
           <span class="iconfont trangle-icon">&#xe688;</span>
         </div>
       </router-link>
@@ -20,10 +20,7 @@
 
 <script>
 export default {
-  name: 'HomeHeader',
-  props: {
-    city: String
-  }
+  name: 'HomeHeader'
 }
 </script>
 
@@ -48,7 +45,8 @@ export default {
       color #ccc
       padding-left 0.2rem
     .header-right
-      width: 1.24rem
+      min-width: 1.04rem
+      padding 0 .1rem
       text-align center
       color #fff
       .trangle-icon {
