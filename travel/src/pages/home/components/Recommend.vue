@@ -2,17 +2,16 @@
   <div>
     <div class="title">热销推荐</div>
     <ul>
-      <li class="item"
-        v-for="item of list"
-        :key="item.id"
-      >
-        <img class="item-img" :src="item.imgUrl" alt="">
-        <div class="item-info">
-          <div class="item-title">{{item.title}}</div>
-          <div class="item-desc">{{item.desc}}</div>
-          <input class="item-btn" type="button" value="查看详情">
-        </div>
+      <router-link :to="'/detail/' + item.id" v-for="item of list" :key="item.id">
+        <li class="item">
+          <img class="item-img" :src="item.imgUrl" alt="">
+          <div class="item-info">
+            <div class="item-title">{{item.title}}</div>
+            <div class="item-desc">{{item.desc}}</div>
+            <input class="item-btn" type="button" value="查看详情">
+          </div>
       </li>
+      </router-link>
     </ul>
   </div>
 </template>
@@ -47,6 +46,7 @@ export default {
         margin-top 0.1rem
         line-height .4rem
         ellipsis()
+        color #000
       .item-desc
         line-height 0.4rem
         margin-top 0.1rem

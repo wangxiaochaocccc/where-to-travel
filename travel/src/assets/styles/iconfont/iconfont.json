@@ -6,6 +6,13 @@
   "description": "去哪旅行网",
   "glyphs": [
     {
+      "icon_id": "2187794",
+      "name": "图片",
+      "font_class": "tupian",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
       "icon_id": "2674472",
       "name": "返回",
       "font_class": "fanhui",
