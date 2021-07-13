@@ -1,6 +1,6 @@
 <template>
   <div class="icon">
-    <swiper :options="swiperOptions" v-if="showIcons">
+    <swiper :options="swiperOptions1" v-if="showIcons">
       <swiper-slide
         v-for="(page,index) of pages"
         :key="index"
@@ -28,7 +28,7 @@ export default {
   },
   data () {
     return {
-      swiperOptions: {
+      swiperOptions1: {
         // 这样写不合法了已经
         // pagination: {
         //   el: '.swiper-pagination'
