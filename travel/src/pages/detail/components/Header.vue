@@ -67,7 +67,7 @@ export default {
   top 0
   left 0
   right 0
-  z-index 2
+  z-index 3
   height $headerHeight
   line-height $headerHeight
   color #fff
