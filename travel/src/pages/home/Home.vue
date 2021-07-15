@@ -16,7 +16,7 @@ import HomeRecommend from './components/Recommend'
 import HomeWeekend from './components/HomeWeekend'
 import axios from 'axios'
 import { useStore } from 'vuex'
-import { reactive, computed, onMounted } from 'vue'
+import { reactive, computed, onMounted, onActivated } from 'vue'
 
 export default {
   name: 'Home',
@@ -57,18 +57,14 @@ export default {
       data.lastCity = city
       getHomeInfo()
     })
+    onActivated(()=> {
+      if (data.lastCity !== city) {
+        data.lastCity = city
+        getHomeInfo()
+      }
+    })
     return { data }
   }
-  // mounted () {
-  //   this.lastCity = this.city
-  //   this.getHomeInfo()
-  // },
-  // activated () {
-  //   if (this.lastCity !== this.city) {
-  //     this.lastCity = this.city
-  //     this.getHomeInfo()
-  //   }
-  // }
 }
 </script>
 
