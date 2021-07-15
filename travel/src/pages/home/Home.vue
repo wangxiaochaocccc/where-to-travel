@@ -39,6 +39,21 @@ export default {
     const city = computed(()=> {
       return store.state.city
     })
+    function getHomeInfo () {
+      axios.get('/api/index.json?city=' + city)
+        .then(getHomeInfoSucc)
+    }
+    function getHomeInfoSucc() {
+      res = res.data
+      console.log(res);
+      // if (res.ret && res.data) {
+      //   const data = res.data
+      //   this.swiperList = data.swiperList
+      //   this.iconList = data.iconList
+      //   this.recommendList = data.recommendList
+      //   this.weekendList = data.weekendList
+      // }
+    }
     return { data }
   }
   // computed: {
