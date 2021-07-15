@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue, { createApp } from 'vue';
 import App from './App'
 import router from './router'
 // import fastClick from 'fastclick'
@@ -9,12 +9,7 @@ import 'styles/reset.css'
 import 'styles/iconfont.css'
 import 'swiper/dist/css/swiper.css'
 
-Vue.config.productionTip = false
 // fastClick.attach(document.body)
-Vue.use(VueAwesomeSwiper)
+// Vue.use(VueAwesomeSwiper)
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+createApp(App).use(router).use(store).use(VueAwesomeSwiper).mount('#app')

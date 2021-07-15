@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="banner" @click="handleBannerClick">
-      <img class="banner_img" :src="this.bannerImg"  alt="">
+      <img class="banner_img" :src="bannerImg"  alt="">
       <div class="banner-info">
-        <div class="banner-title">{{this.sightName}}</div>
+        <div class="banner-title">{{sightName}}</div>
         <div class="banner-number">
           <span class="iconfont img-icon">&#xe616;</span>
-          {{this.gallaryImgs.length}}
+          {{gallaryImgs.length}}
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">{{this.city}}</div>
+            <div class="button">{{city}}</div>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default {
     letter () {
       if (this.letter) {
         // 必须放在if里 否则会报错
-        let element = this.$refs[this.letter][0]
+        let element = this.$refs[this.letter]
         // 参数必须是DOM元素
         this.scroll.scrollToElement(element)
       }

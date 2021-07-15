@@ -5,9 +5,6 @@
         <img :src="item.imgUrl" alt="" class="swiper-img">
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
-      <!-- <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
-      <div class="swiper-scrollbar" slot="scrollbar"></div> -->
     </swiper>
   </div>
 </template>

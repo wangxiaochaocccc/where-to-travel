@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <keep-alive exclude="Detail">
-      <router-view/>
-    </keep-alive>
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 
