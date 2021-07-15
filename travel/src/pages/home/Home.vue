@@ -15,8 +15,8 @@ import HomeIcon from './components/Icon'
 import HomeRecommend from './components/Recommend'
 import HomeWeekend from './components/HomeWeekend'
 import axios from 'axios'
-import { mapState } from 'vuex'
-import { reactive } from 'vue'
+import { useStore } from 'vuex'
+import { reactive, computed } from 'vue'
 
 export default {
   name: 'Home',
@@ -34,6 +34,10 @@ export default {
       iconList: [],
       recommendList: [],
       weekendList: []
+    })
+    const store = useStore()
+    const city = computed(()=> {
+      return store.state.city
     })
     return { data }
   }
