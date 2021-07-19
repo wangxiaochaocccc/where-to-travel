@@ -10,31 +10,21 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 export default {
   name: 'HomeSwiper',
   props: {
     list: Array
   },
-  data () {
-    return {
-      swiperOptions: {
-        // 这样写不合法了已经
-        // pagination: {
-        //   el: '.swiper-pagination'
-        // }
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        // 循环
-        loop: true
-        // 每张播放时长3秒，自动播放
-        // autoplay: 2000
-      }
+  setup(props) {
+    const swiperOptions ={
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+      // 循环
+      loop: true
     }
-  },
-  computed: {
-    showSwiper () {
-      return this.list.length
-    }
+    const showSwiper = computed( () => props.list.length )
+    return { swiperOptions, showSwiper }
   }
 }
 </script>

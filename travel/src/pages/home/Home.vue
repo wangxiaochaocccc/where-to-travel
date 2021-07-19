@@ -1,10 +1,10 @@
 <template>
   <div>
     <home-header></home-header>
-    <home-swiper :list="data.swiperList"></home-swiper>
-    <home-icon :list="data.iconList"></home-icon>
-    <home-recommend :list="data.recommendList"></home-recommend>
-    <home-weekend :list="data.weekendList"></home-weekend>
+    <home-swiper :list="swiperList"></home-swiper>
+    <home-icon :list="iconList"></home-icon>
+    <home-recommend :list="recommendList"></home-recommend>
+    <home-weekend :list="weekendList"></home-weekend>
   </div>
 </template>
 
@@ -16,7 +16,7 @@ import HomeRecommend from './components/Recommend'
 import HomeWeekend from './components/HomeWeekend'
 import axios from 'axios'
 import { useStore } from 'vuex'
-import { reactive, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 
 export default {
   name: 'Home',
@@ -28,13 +28,17 @@ export default {
     HomeWeekend
   },
   setup() {
-    const data = reactive({
-      // lastCity: '',
-      swiperList: [],
-      iconList: [],
-      recommendList: [],
-      weekendList: []
-    })
+    // const data = reactive({
+    //   // lastCity: '',
+    //   swiperList: [],
+    //   iconList: [],
+    //   recommendList: [],
+    //   weekendList: []
+    // })
+    const swiperList = ref([])
+    const iconList = ref([])
+    const recommendList = ref([])
+    const weekendList = ref([])
     const store = useStore()
     const city = store.state.city
     // const city = computed(()=> {
@@ -46,10 +50,10 @@ export default {
       res = res.data
       if (res.ret && res.data) {
         const result = res.data
-        data.swiperList = result.swiperList
-        data.iconList = result.iconList
-        data.recommendList = result.recommendList
-        data.weekendList = result.weekendList
+        swiperList.value = result.swiperList
+        iconList.value = result.iconList
+        recommendList.value = result.recommendList
+        weekendList.value = result.weekendList
       }
     }
     onMounted(()=>{
@@ -63,7 +67,7 @@ export default {
     //     getHomeInfo()
     //   }
     // })
-    return { data }
+    return { swiperList, iconList,  weekendList, recommendList }
   }
 }
 </script>

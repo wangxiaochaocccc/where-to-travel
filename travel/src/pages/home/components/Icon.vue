@@ -21,31 +21,21 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 export default {
   name: 'HomeIcon',
   props: {
     list: Array
   },
-  data () {
-    return {
-      swiperOptions1: {
-        // 这样写不合法了已经
-        // pagination: {
-        //   el: '.swiper-pagination'
-        // }
+  setup(props) {
+    const swiperOptions1 = {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         // 循环
         loop: true
-        // 每张播放时长3秒，自动播放
-        // autoplay: 2000
-      }
     }
-  },
-  computed: {
-    pages () {
-      const pages = []
-      this.list.forEach((item, index) => {
+    const pages = computed(()=>{
+      props.list.forEach((item, index) => {
         const page = Math.floor(index / 8)
         if (!pages[page]) {
           pages[page] = []
@@ -53,10 +43,9 @@ export default {
         pages[page].push(item)
       })
       return pages
-    },
-    showIcons () {
-      return this.list.length
-    }
+    })
+    const showIcons = computed( () => props.list.length )
+    return { swiperOptions1, pages,  showIcons}
   }
 }
 </script>
