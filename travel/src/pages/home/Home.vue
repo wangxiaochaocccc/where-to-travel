@@ -16,7 +16,7 @@ import HomeRecommend from './components/Recommend'
 import HomeWeekend from './components/HomeWeekend'
 import axios from 'axios'
 import { useStore } from 'vuex'
-import { reactive, computed, onMounted, onActivated } from 'vue'
+import { reactive, onMounted } from 'vue'
 
 export default {
   name: 'Home',
@@ -29,21 +29,20 @@ export default {
   },
   setup() {
     const data = reactive({
-      lastCity: '',
+      // lastCity: '',
       swiperList: [],
       iconList: [],
       recommendList: [],
       weekendList: []
     })
     const store = useStore()
-    const city = computed(()=> {
-      return store.state.city
-    })
-    function getHomeInfo () {
-      axios.get('/api/index.json?city=' + city.value)
-        .then(getHomeInfoSucc)
-    }
-    function getHomeInfoSucc(res) {
+    const city = store.state.city
+    // const city = computed(()=> {
+    //   return store.state.city
+    // })
+    async function getHomeInfo () {
+      // 用计算属性监听city时 用city.value 
+      let res = await  axios.get('/api/index.json?city=' + city)
       res = res.data
       if (res.ret && res.data) {
         const result = res.data
@@ -54,15 +53,16 @@ export default {
       }
     }
     onMounted(()=>{
-      data.lastCity = city
+      // data.lastCity = city
       getHomeInfo()
     })
-    onActivated(()=> {
-      if (data.lastCity !== city) {
-        data.lastCity = city
-        getHomeInfo()
-      }
-    })
+    // 代码不执行 
+    // onActivated(()=> {
+    //   if (data.lastCity !== city) {
+    //     data.lastCity = city
+    //     getHomeInfo()
+    //   }
+    // })
     return { data }
   }
 }
