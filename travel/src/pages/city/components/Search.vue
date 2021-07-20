@@ -14,62 +14,59 @@
 
 <script>
 import Bscroll from 'better-scroll'
-import { mapMutations } from 'vuex'
-
+import { useStore } from 'vuex'
+import { router } from 'vue-router'
+import { watch, ref, computed, onMounted, onUpdated } from 'vue'
 export default {
   name: 'CitySearch',
   props: {
     cities: Object
   },
-  data () {
-    return {
-      keyWords: '',
-      timer: null,
-      list: []
+  setup(props) {
+    const keyWords = ref('')
+    const list = ref([])
+    let timer = null
+    const store = useStore()
+    let scroll = null
+    const search = ref(null)
+    function handleCityClick (city) {
+      store.city('changeCity',city)
+      router.push('/')
     }
-  },
-  methods: {
-    handleCityClick (city) {
-      this.changeCity(city)
-      this.$router.push('/')
-    },
-    ...mapMutations(['changeCity'])
-  },
-  watch: {
-    keyWords () {
-      if (this.timer) {
-        clearTimeout(this.timer)
+    watch(keyWords, (keyWords) => {
+      if (timer) {
+        clearTimeout(timer)
+        timer = null
       }
-      if (!this.keyWords) {
-        this.list = []
+      if (!keyWords) {
+        list.value = []
         return
       }
-      this.timer = setTimeout(() => {
+      timer = setTimeout(() => {
         let result = []
-        for (let i in this.cities) {
-          this.cities[i].forEach(value => {
-            if (value.spell.indexOf(this.keyWords) > -1 || value.name.indexOf(this.keyWords) > -1) {
+        for (let i in props.cities) {
+          props.cities[i].forEach(value => {
+            if (value.spell.indexOf(keyWords) > -1 || value.name.indexOf(keyWords) > -1) {
               result.push(value)
             }
           })
         }
-        this.list = result
+        list.value = result
       }, 100)
-    }
-  },
-  computed: {
-    hasNoData () {
-      return !this.list.length
-    }
-  },
-  mounted () {
-    this.scroll = new Bscroll(this.$refs.search, {
-      click: true
     })
-  },
-  updated () {
-    // 重新计算高度
-    this.scroll.refresh()
+    let hasNoData = computed(() => {
+      !list.length
+    })
+    onMounted(() => {
+      scroll = new Bscroll(search.value, {
+        click: true
+      })
+    })
+    onUpdated(() => {
+      // 重新计算高度
+      scroll.refresh()
+    })
+    return { list, keyWords, handleCityClick, hasNoData, search }
   }
 }
 </script>

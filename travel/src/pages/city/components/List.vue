@@ -5,7 +5,7 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">{{city}}</div>
+            <div class="button">{{currentCity}}</div>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div class="area"
         v-for="(item, key) of cities"
         :key="key"
-        :ref="key"
+        :ref="elem => elems[key] = elem"
       >
         <div class="title border-topbottom">
           {{key}}
@@ -43,7 +43,9 @@
 
 <script>
 import Bscroll from 'better-scroll'
-import { mapState, mapMutations } from 'vuex'
+import { useStore } from 'vuex'
+import { useRouter} from 'vue-router'
+import { watch, onMounted, onUpdated, ref, computed } from 'vue'
 
 export default {
   name: 'CityList',
@@ -52,33 +54,39 @@ export default {
     hot: Array,
     letter: String
   },
-  computed: {
-    ...mapState(['city'])
-  },
-  methods: {
-    handleCityClick (city) {
-      this.changeCity(city)
-      this.$router.push('/')
-    },
-    ...mapMutations(['changeCity'])
-  },
-  watch: {
-    letter () {
-      if (this.letter) {
-        // 必须放在if里 否则会报错
-        let element = this.$refs[this.letter]
-        // 参数必须是DOM元素
-        this.scroll.scrollToElement(element)
-      }
-    }
-  },
-  mounted () {
-    this.scroll = new Bscroll(this.$refs.wrapper, {
-      click: true
+  setup(props) {
+    const store = useStore()
+    const router = useRouter()
+    let scroll = null
+    const elems = ref({})
+    const wrapper = ref(null)
+    let currentCity = computed(()=>{
+      return store.state.city
     })
-  },
-  updated () {
-    this.scroll.refresh()
+    function handleCityClick (city) {
+      store.commit('changeCity', city)
+      router.push('/')
+    }
+
+    watch(() => props.letter, (letter, prevLetter) => {
+      if (letter && scroll) {
+        // 必须放在if里 否则会报错
+        let element = elems.value[letter]
+        // 参数必须是DOM元素
+        scroll.scrollToElement(element)
+      }
+    })
+    onMounted(() => {
+      scroll = new Bscroll(wrapper.value, {
+        click: true
+      })
+      currentCity = store.state.city
+    })
+    onUpdated(()=>{
+      scroll.refresh()
+    })
+    return { currentCity, handleCityClick, elems, wrapper}
+    
   }
 }
 </script>
