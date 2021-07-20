@@ -1,10 +1,10 @@
 <template>
   <div>
     <city-header></city-header>
-    <city-search :cities="cities"></city-search>
-    <city-list :cities="cities" :hot="hotCities" :letter="letter"></city-list>
+    <city-search :cities="data.cities"></city-search>
+    <city-list :cities="data.cities" :hot="data.hotCities" :letter="letter"></city-list>
     <city-alphabet
-      :cities="cities"
+      :cities="data.cities"
       @change="handleLetterChange"
     >
     </city-alphabet>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { reactive, ref, onMounted } from 'vue'
 import axios from 'axios'
 import CityHeader from './components/Header'
 import CitySearch from './components/Search'
@@ -25,32 +26,36 @@ export default {
     CityList,
     CityAlphabet
   },
-  data () {
-    return {
+  setup() {
+    const { letter, handleLetterChange} = useLetterLogic()
+    const { data } = useCityLogic()
+    return { data, handleLetterChange, letter }
+  }
+}
+
+function useLetterLogic() {
+  const letter = ref('')
+  function handleLetterChange(selected) {
+    letter.value = selected
+  }
+
+  return { letter, handleLetterChange }
+}
+function useCityLogic() {
+  const data = reactive({
       cities: {},
       hotCities: [],
-      letter: ''
-    }
-  },
-  methods: {
-    getCityInfo () {
-      axios.get('/api/city.json')
-        .then(this.handleGetCityInfoSucc)
-    },
-    handleGetCityInfoSucc (res) {
+    })
+    async function getCityInfo() {
+      let res =  await axios.get('/api/city.json')
       res = res.data
       if (res.ret && res.data) {
-        this.cities = res.data.cities
-        this.hotCities = res.data.hotCities
+        data.cities = res.data.cities
+        data.hotCities = res.data.hotCities
       }
-    },
-    handleLetterChange (letter) {
-      this.letter = letter
     }
-  },
-  mounted () {
-    this.getCityInfo()
-  }
+    onMounted(() => { getCityInfo() })
+    return { data }
 }
 </script>
 
