@@ -17,32 +17,32 @@
 </template>
 
 <script>
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 export default {
   name: 'detailHeader',
-  data () {
-    return {
-      showAbs: true,
+  setup() {
+    const showAbs = ref(true)
+    let opacityStyle = reactive({
       opacityStyle: {}
-    }
-  },
-  methods: {
-    handleScroll () {
+    })
+    function handleScroll() {
       const top = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
       if (top >= 60) {
         let opacity = top / 140
         opacity = opacity > 1 ? 1 : opacity
-        this.opacityStyle = { opacity }
-        this.showAbs = false
+        opacityStyle = { opacity }
+        showAbs.value = false
       } else {
-        this.showAbs = true
+        showAbs.value = true
       }
     }
-  },
-  mounted () {
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll)
+    onMounted(() => {
+      window.addEventListener('scroll', handleScroll)
+    })
+    onUnmounted(() => {
+      window.removeEventListener('scroll', handleScroll)
+    })
+    return { showAbs, opacityStyle }
   }
 }
 </script>

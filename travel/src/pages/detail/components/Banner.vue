@@ -19,30 +19,27 @@
 <script>
 import CommonGallary from 'common/gallary/Gallary'
 import FadeAnimation from 'common/fade/FadeAnimation'
-
+import { ref } from 'vue'
 export default {
   name: 'DetailBanner',
+  components: {
+    CommonGallary,
+    FadeAnimation
+  },
   props: {
     sightName: String,
     bannerImg: String,
     gallaryImgs: Array
   },
-  data () {
-    return {
-      showGallary: false
+  setup() {
+    let showGallary = ref(false)
+    function handleBannerClick () {
+      showGallary.value = true
     }
-  },
-  methods: {
-    handleBannerClick () {
-      this.showGallary = true
-    },
-    handleGallaryClose () {
-      this.showGallary = false
+    function handleGallaryClose () {
+      showGallary.value = false
     }
-  },
-  components: {
-    CommonGallary,
-    FadeAnimation
+    return { handleBannerClick, handleGallaryClose, showGallary }
   }
 }
 </script>
